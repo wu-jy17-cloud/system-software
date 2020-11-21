@@ -83,6 +83,15 @@
 		<Unit filename="/Users/wujiayi/CLionProjects/system-software/main.cpp">
 			<Option target="system_software"/>
 		</Unit>
+		<Unit filename="/Users/wujiayi/CLionProjects/system-software/proc.cpp">
+			<Option target="system_software"/>
+		</Unit>
+		<Unit filename="/Users/wujiayi/CLionProjects/system-software/proc.h">
+			<Option target="system_software"/>
+		</Unit>
+		<Unit filename="/Users/wujiayi/CLionProjects/system-software/sched.h">
+			<Option target="system_software"/>
+		</Unit>
 		<Unit filename="/Users/wujiayi/CLionProjects/system-software/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

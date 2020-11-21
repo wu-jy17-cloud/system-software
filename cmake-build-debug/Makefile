@@ -150,6 +150,33 @@ main.cpp.s:
 	$(MAKE) -f CMakeFiles/system_software.dir/build.make CMakeFiles/system_software.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+proc.o: proc.cpp.o
+
+.PHONY : proc.o
+
+# target to build an object file
+proc.cpp.o:
+	$(MAKE) -f CMakeFiles/system_software.dir/build.make CMakeFiles/system_software.dir/proc.cpp.o
+.PHONY : proc.cpp.o
+
+proc.i: proc.cpp.i
+
+.PHONY : proc.i
+
+# target to preprocess a source file
+proc.cpp.i:
+	$(MAKE) -f CMakeFiles/system_software.dir/build.make CMakeFiles/system_software.dir/proc.cpp.i
+.PHONY : proc.cpp.i
+
+proc.s: proc.cpp.s
+
+.PHONY : proc.s
+
+# target to generate assembly for a file
+proc.cpp.s:
+	$(MAKE) -f CMakeFiles/system_software.dir/build.make CMakeFiles/system_software.dir/proc.cpp.s
+.PHONY : proc.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,6 +189,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... proc.o"
+	@echo "... proc.i"
+	@echo "... proc.s"
 .PHONY : help
 
 

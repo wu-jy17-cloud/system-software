@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/wujiayi/CLionProjects/system-software/main.cpp
+iostream
+-
+list
+-
+proc.h
+/Users/wujiayi/CLionProjects/system-software/proc.h
+
+/Users/wujiayi/CLionProjects/system-software/proc.h
+

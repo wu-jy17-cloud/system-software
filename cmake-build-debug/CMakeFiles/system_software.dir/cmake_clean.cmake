@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/system_software.dir/main.cpp.o"
+  "CMakeFiles/system_software.dir/proc.cpp.o"
   "system_software"
   "system_software.pdb"
 )
