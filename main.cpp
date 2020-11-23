@@ -14,11 +14,6 @@ list <proc>  ready_queue;
 list <proc>  notCreated_queue;
 list <proc>  finished_queue;
 
-
-void scheduleRR () {
-
-}
-
 void scheduleFCFS (){
     while (notCreated_queue.front().createTime == timer) {
         notCreated_queue.front().state = PROC_RUNNABLE;
@@ -30,9 +25,57 @@ void scheduleFCFS (){
     if(cur && --cur->needtime == 0) {
         cur->state = PROC_FINISHED;
         finished_queue.push_back(*cur);
+        // 释放的是指针变量 p 所指向的内存，而不是指针变量 p 本身。指针变量 p 并没有被释放，仍然指向原来的存储空间。
+        free(cur);
         cur = nullptr;
         needSched = true;
         change = true;
+    }
+
+    if ((!cur && !ready_queue.empty()) ||( needSched && !ready_queue.empty())) {
+        cur = static_cast<proc *>(malloc(sizeof(struct proc)));
+        cur->pid = ready_queue.front().pid;
+        cur->state = PROC_RUNNING;
+        cur->createTime = ready_queue.front().createTime;
+        cur->needtime = ready_queue.front().needtime;
+        cur->cputime = ready_queue.front().cputime;
+        cur->count = ready_queue.front().count;
+        cur->prio = ready_queue.front().prio;
+        cur->round = ready_queue.front().round;
+
+        ready_queue.pop_front();
+        needSched = false;
+        change = true;
+    }
+}
+
+
+void scheduleRR () {
+    while (notCreated_queue.front().createTime == timer) {
+        notCreated_queue.front().state = PROC_RUNNABLE;
+        ready_queue.push_back(notCreated_queue.front());
+        notCreated_queue.pop_front();
+        change = true;
+    }
+
+    if(cur) {
+        if(--cur->needtime == 0) {
+            cur->state = PROC_FINISHED;
+            finished_queue.push_back(*cur);
+            // 释放的是指针变量 p 所指向的内存，而不是指针变量 p 本身。指针变量 p 并没有被释放，仍然指向原来的存储空间。
+            free(cur);
+            cur = nullptr;
+            needSched = true;
+            change = true;
+        } else if (--cur->round == 0) {
+            cur->state = PROC_RUNNABLE;
+            ready_queue.push_back(*cur);
+            // 释放的是指针变量 p 所指向的内存，而不是指针变量 p 本身。指针变量 p 并没有被释放，仍然指向原来的存储空间。
+            free(cur);
+            cur = nullptr;
+            needSched = true;
+            change = true;
+        }
     }
 
     if ((!cur && !ready_queue.empty()) ||( needSched && !ready_queue.empty())) {
@@ -119,7 +162,12 @@ int main() {
     if (name == "RR") {
         fscanf(fp, "%d", &timeSlice);
         printf("%d\n", timeSlice);
-        while (finished_queue.size() == count) {
+        auto iter = notCreated_queue.begin();
+        while(iter != notCreated_queue.end()) {
+            iter->round = timeSlice;
+            iter++;
+        }
+        while (finished_queue.size() != count) {
             scheduleRR();
             if (change) {
                 print();
